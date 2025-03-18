@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanderhall Simulator Build Tracker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+        body {
+            font-family: 'Abel', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .tracker-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .tracker-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2a7d2e;
+        }
+        .tracker-info {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            position: relative;
+        }
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            width: 80%;
+            height: 5px;
+            background: #ddd;
+            z-index: -1;
+        }
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            background: #ddd;
+            border-radius: 50%;
+            display: inline-block;
+            line-height: 30px;
+            font-weight: bold;
+            color: white;
+            transition: background 0.3s;
+        }
+        .active {
+            background: #2a7d2e;
+        }
+        select, input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Abel', sans-serif;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="tracker-container">
+        <div class="tracker-header">Vanderhall Simulator Build Tracker</div>
+        <div class="tracker-info">Order ID: <input type="text" id="orderId" value="#ZMJ82D9"></div>
+        <div class="tracker-info">Estimated Completion: <input type="text" id="completionDate" value="01/15/2024" style="color: blue;"></div>
+        
+        <div class="progress-bar">
+            <span class="progress-step" id="step1">✔</span>
+            <div class="progress-line"></div>
+            <span class="progress-step" id="step2">2</span>
+            <span class="progress-step" id="step3">3</span>
+            <span class="progress-step" id="step4">4</span>
+            <span class="progress-step" id="step5">5</span>
+        </div>
+        
+        <div class="progress-bar">
+            <div>🏁 Order Confirmed</div>
+            <div>🔧 Build in Progress</div>
+            <div>🛠 Final Assembly</div>
+            <div>🎨 Custom Finishes</div>
+            <div>📦 Ready for Pickup</div>
+        </div>
+        
+        <label for="status">Update Build Status:</label>
+        <select id="status" onchange="updateProgress()">
+            <option value="1">🏁 Order Confirmed</option>
+            <option value="2">🔧 Build in Progress</option>
+            <option value="3">🛠 Final Assembly</option>
+            <option value="4">🎨 Custom Finishes</option>
+            <option value="5">📦 Ready for Pickup</option>
+        </select>
+    </div>
+
+    <script>
+        function updateProgress() {
+            let status = document.getElementById("status").value;
+            let steps = document.querySelectorAll(".progress-step");
+            steps.forEach((step, index) => {
+                if (index < status) {
+                    step.classList.add("active");
+                    step.textContent = "✔";
+                } else {
+                    step.classList.remove("active");
+                    step.textContent = index + 1;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
